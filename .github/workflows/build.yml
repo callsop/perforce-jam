@@ -33,10 +33,14 @@ jobs:
 
     - uses: actions/checkout@v4
 
-    - name: Enable Windows x86
+    - name: Enable Windows 64
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: sed -e "68,72s/^#//" Makefile > Makefile.nmake
+      run: sed -e "50,54s/^#//" Makefile > Makefile.nmake
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: nmake -f Makefile.nmake
+      run: set OSPLAT=x64 & nmake -f Makefile.nmake
+
+    - name: Run
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: bin.ntx64\jam.exe -v
