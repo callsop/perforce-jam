@@ -94,11 +94,11 @@ TARGET = -o $(EXENAME)
 #CC = gcc
 
 # AS400 - icc wrapper around ILE C compiler.
-# CC = icc 
+# CC = icc
 # CFLAGS = -DAS400 -qDUPPROC
 #
 # Can't use ./jam0 as EXENAME on AS/400. It confuses icc et al.
-# EXENAME = jam0  
+# EXENAME = jam0
 
 SOURCES = \
 	builtins.c \
