@@ -47,15 +47,11 @@ TARGET = -o $(EXENAME)
 # set BUILD_WITH_SUB_DIRECTORIES=false
 #
 # Only uncomment the lines immediately below.
-IFDEF VSINSTALLDIR  # make
-!IFDEF VSINSTALLDIR # nmake
-CC = cl /nologo
-CFLAGS = /favor:blend /MT -D_M_AMD64 -DNT -D_CRT_SECURE_NO_DEPRECATE /wd4996
-TARGET = /Fejam0
-LINKLIBS = oldnames.lib kernel32.lib libcmt.lib
-EXENAME = .\jam0.exe
-ENDIF  # make
-!ENDIF # nmake
+#CC = cl /nologo
+#CFLAGS = /favor:blend /MT -D_M_AMD64 -DNT -D_CRT_SECURE_NO_DEPRECATE /wd4996
+#TARGET = /Fejam0
+#LINKLIBS = oldnames.lib kernel32.lib libcmt.lib
+#EXENAME = .\jam0.exe
 
 # X86 NET 2005-2015
 # Configured with MS CRT deprecation disabled.
