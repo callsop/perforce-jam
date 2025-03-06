@@ -44,9 +44,9 @@ jobs:
 
           # Pack files
           if [ "${{ matrix.target }}" == "win-x64" ]; then
-            7z a -tzip "${release_name}.zip" "./bin.ntx64/*"
+            7z a -tzip "${release_name}.zip" "./bin.ntx64/jam.exe"
           else
-            tar czvf "${release_name}.tar.gz" "bin.ntx64/"
+            tar czvf "${release_name}.tar.gz" "bin.ntx64/jam"
           fi
 
     - name: Release
