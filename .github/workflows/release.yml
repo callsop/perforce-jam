@@ -28,24 +28,23 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: bin.ntx64\jam.exe -v
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-        draft: false
-        prerelease: false
+    - name: Package
+      shell: bash
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+          tag=${{ github.ref }}
+          release_name="jam-$tag-${{ matrix.target }}"
 
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
+          # Pack files
+          if [ "${{ matrix.target }}" == "win-x64" ]; then
+            7z a -tzip "${release_name}.zip" "./bin.ntx64/*"
+          else
+            tar czvf "${release_name}.tar.gz" "bin.ntx64/"
+          fi
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: ./bin.ntx64/jam.exe
-        asset_name: bin.ntx64/jam.exe
-        asset_content_type: application/octet-stream
+        files: "jam-*"
