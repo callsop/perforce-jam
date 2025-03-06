@@ -39,7 +39,7 @@ jobs:
       shell: bash
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: |
-          tag=${{ github.ref }}
+          tag=$(git describe --tags --abbrev=0)
           release_name="jam-$tag-${{ matrix.target }}"
 
           # Pack files
