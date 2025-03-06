@@ -63,7 +63,7 @@
 # define USE_MYWAIT
 # if !defined( __BORLANDC__ ) 
 # define wait my_wait
-static long my_wait( int *status );
+static intptr_t my_wait( int *status );
 # endif
 # endif
 
@@ -73,7 +73,7 @@ static void (*istat)( int );
 
 static struct
 {
-	long	pid; /* on win32, a real process handle */
+	intptr_t pid; /* on win32, a real process handle */
 	void	(*func)( void *closure, int status );
 	void 	*closure;
 
@@ -380,7 +380,7 @@ execwait()
 
 # ifdef USE_MYWAIT
 
-static long
+static intptr_t
 my_wait( int *status )
 {
 	int i, num_active = 0;
@@ -427,7 +427,7 @@ my_wait( int *status )
 	    if ( GetExitCodeProcess(active_handles[i], &exitcode) ) {
 		CloseHandle(active_handles[i]);
 		*status = (int)((exitcode & 0xff) << 8);
-		return (long)active_handles[i];
+		return (intptr_t)active_handles[i];
 	    }
 	}
 
