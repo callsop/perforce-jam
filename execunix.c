@@ -73,7 +73,7 @@ static void (*istat)( int );
 
 static struct
 {
-	long	pid; /* on win32, a real process handle */
+	intptr_t pid; /* on win32, a real process handle */
 	void	(*func)( void *closure, int status );
 	void 	*closure;
 
