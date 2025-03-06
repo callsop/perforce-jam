@@ -8,7 +8,14 @@ on:
 jobs:
   build:
     name: Publish binaries
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        kind: ['windows']
+        include:
+          - kind: windows
+            os: windows-latest
+            target: win-x64
+    runs-on: ${{ matrix.os }}
 
     steps:
     - name: Setup Developer Command Prompt
